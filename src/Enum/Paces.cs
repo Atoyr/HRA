@@ -4,12 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HRA.Data
+namespace HRA.Enum
 {
-    public enum Grounds
+    public enum Paces
     {
-      Grass,
-      Dirt
+      Slow,
+      Middle,
+      Hight
     }
 }
 

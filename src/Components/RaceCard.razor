@@ -1,0 +1,18 @@
+
+<table>
+  <!-- header -->
+  <tr>
+    <th>番</th>
+    <th>予想印</th>
+  </tr>
+  @if(Horses is not null)
+  {
+    @foreach (var h in Horses)
+    {
+      <tr>
+        <th>@h.Name</th>
+        <th>@h.Name</th>
+      </tr>
+    }
+  }
+</table>

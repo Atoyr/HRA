@@ -1,7 +1,20 @@
 @page "/"
+@inherits ComponentBase
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<h2>NEWS</h2>
+<h3>@rssInfo.Description</h3>
+<ul>
+@foreach(var item in rssInfo.Items)
+{
+<li>
+<div>
+  <a helf=@item.Link>@item.Title</a>
+  <p>@item.Description </p>
+</div>
+</li>
+}
+</ul>

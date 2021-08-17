@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using HRA.Data;
+using HRA.Data.Dummy;
 
 namespace HRA
 {
@@ -33,6 +34,7 @@ namespace HRA
 
             services.AddDbContext<AppDBContext>(item => 
                 item.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddSingleton<IDataService<Race>, RaceDummyService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

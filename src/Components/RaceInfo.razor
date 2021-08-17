@@ -1,0 +1,20 @@
+@inherits HRAComponentBase
+
+<table>
+  <!-- header -->
+  <tr>
+    <th>日付</th>
+    <th>レース名</th>
+  </tr>
+  @if(Races is not null)
+  {
+    @foreach (var r in Races)
+    {
+      <tr>
+        <th>@r.Date.ToString("yyyy/MM/dd")</th>
+        <th>@r.Name</th>
+      </tr>
+    }
+  }
+</table>
+

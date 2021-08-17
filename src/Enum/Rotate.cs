@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HRA.Data
+namespace HRA.Enum
 {
-    public enum SexTypes
+    public enum Rotate
     {
-      Stallion,
-      Mare,
-      Gelding
+      Left,
+      Right
     }
 }
+
 
