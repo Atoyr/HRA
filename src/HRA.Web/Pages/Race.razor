@@ -1,0 +1,32 @@
+@page "/Race/{RaceID?}"
+@inherits ComponentBase
+@using HRA.EF.Enum
+
+@if (RaceID is null)
+{
+  <h1>今週のレース</h1>
+  @foreach(var d in racePlaces.GroupBy(x => x.Date).Select(x => x.Key).ToList())
+  {
+    <h4>@d.ToString("yyyy/MM/dd")</h4>
+    @foreach(var p in racePlaces.Where(x => x.Date == d).ToList())
+    {
+      <p>@p.Date</p>
+      <p>@p.Place.Name()</p>
+
+      @foreach(var race in races.Where(x => x.Date == p.Date && x.Place == p.Place).OrderBy(x => x.Round).ToList())
+      {
+        <h5>@race.Name</h5>
+      }
+    }
+  }
+
+}
+else if (races is null || races.Count() == 0)
+{
+  <h1>パラメータエラー</h1>
+}
+else
+{
+  <h1>@races[0].Name</h1>
+}
+
