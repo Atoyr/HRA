@@ -19,7 +19,7 @@ namespace HRA.EF.Enum
       string ret = string.Empty;
       switch(param)
       {
-        case Grounds.Truf:
+        case Grounds.Turf:
           ret = "芝";
           break;
         case Grounds.Dirt:
@@ -28,6 +28,7 @@ namespace HRA.EF.Enum
       }
       return ret;
     }
+  }
 }
 
 
