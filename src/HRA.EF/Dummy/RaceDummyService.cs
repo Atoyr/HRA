@@ -23,7 +23,7 @@ namespace HRA.EF.Dummy
         races.Add(rn4101);
 
         var rn4102 = new Race
-        { No = 4, Year = 2021, Day = 1, Round = 2, Name = "2歳未勝利（混合）", Place = RacePlaces.Nigata, Date = new DateTime(2021, 8, 14), Course = Grounds.Grass, Distance = 1800, NumberOfHorse = 11, RaceClass = RaceClasses.NoWin, MareOnly = false };
+        { No = 4, Year = 2021, Day = 1, Round = 2, Name = "2歳未勝利（混合）", Place = RacePlaces.Nigata, Date = new DateTime(2021, 8, 14), Course = Grounds.Turf, Distance = 1800, NumberOfHorse = 11, RaceClass = RaceClasses.NoWin, MareOnly = false };
         rn4102.ID = rn4102.GenerateID();
         races.Add(rn4102);
 
@@ -33,12 +33,12 @@ namespace HRA.EF.Dummy
         races.Add(rn4103);
 
         var rn4104 = new Race
-        { No = 4, Year = 2021, Day = 1, Round = 4, Name = "3歳未勝利雌", Place = RacePlaces.Nigata, Date = new DateTime(2021, 8, 14), Course = Grounds.Grass, Distance = 2000, NumberOfHorse = 14, RaceClass = RaceClasses.NoWin, MareOnly = true };
+        { No = 4, Year = 2021, Day = 1, Round = 4, Name = "3歳未勝利雌", Place = RacePlaces.Nigata, Date = new DateTime(2021, 8, 14), Course = Grounds.Turf, Distance = 2000, NumberOfHorse = 14, RaceClass = RaceClasses.NoWin, MareOnly = true };
         rn4104.ID = rn4104.GenerateID();
         races.Add(rn4104);
 
         var rn4105 = new Race
-        { No = 4, Year = 2021, Day = 1, Round = 5, Name = "メイクデビュー新潟", Place = RacePlaces.Nigata, Date = new DateTime(2021, 8, 14), Course = Grounds.Grass, Distance = 1600, NumberOfHorse = 17, RaceClass = RaceClasses.NoWin, MareOnly = false };
+        { No = 4, Year = 2021, Day = 1, Round = 5, Name = "メイクデビュー新潟", Place = RacePlaces.Nigata, Date = new DateTime(2021, 8, 14), Course = Grounds.Turf, Distance = 1600, NumberOfHorse = 17, RaceClass = RaceClasses.NoWin, MareOnly = false };
         rn4105.ID = rn4105.GenerateID();
         races.Add(rn4105);
 
@@ -51,7 +51,7 @@ namespace HRA.EF.Dummy
           Name = "小倉記念",
           Place = RacePlaces.Ogura,
           Date = new DateTime(2021, 8, 15),
-          Course = Grounds.Grass,
+          Course = Grounds.Turf,
           Distance = 2000,
           NumberOfHorse = 10,
           RaceClass = RaceClasses.G3,
@@ -68,7 +68,7 @@ namespace HRA.EF.Dummy
           Name = "関屋記念",
           Place = RacePlaces.Nigata,
           Date = new DateTime(2021, 8, 15),
-          Course = Grounds.Grass,
+          Course = Grounds.Turf,
           Distance = 1600,
           NumberOfHorse = 18,
           RaceClass = RaceClasses.G3,

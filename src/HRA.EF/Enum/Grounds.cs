@@ -8,8 +8,25 @@ namespace HRA.EF.Enum
 {
     public enum Grounds
     {
-      Grass,
+      Turf,
       Dirt
+    }
+
+  public static partial class GroundsExtend 
+  {
+    public static string Name(this Grounds param) 
+    {
+      string ret = string.Empty;
+      switch(param)
+      {
+        case Grounds.Truf:
+          ret = "芝";
+          break;
+        case Grounds.Dirt:
+          ret = "ダート";
+          break;
+      }
+      return ret;
     }
 }
 

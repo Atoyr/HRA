@@ -75,17 +75,17 @@ namespace HRA.EF
         /// </summary>
         public decimal BurdenWeight { get; set; }
         /// <summary>
-        /// Weight
+        /// HorseWeight
         /// </summary>
-        public decimal Weight { set; get; }
+        public decimal HorseWeight { set; get; }
         /// <summary>
         /// Fluctuation ( +- 0)
         /// </summary>
         public decimal Fluctuation { set; get; }
         /// <summary>
-        /// Driver
+        /// Jokey
         /// </summary>
-        public string Driver { set; get; }
+        public string Jokey { set; get; }
 
         
         public virtual Race Race { set; get; }

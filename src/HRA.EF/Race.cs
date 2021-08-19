@@ -59,10 +59,24 @@ namespace HRA.EF
         public int NumberOfHorse { get; set; }
 
         /// <summary>
+        /// Category (3歳上)
+        /// </summary>
+        public string Category { get; set; }
+
+        /// <summary>
         /// Race Class (G1 G2 etc...)
         /// </summary>
-        public RaceClasses RaceClass { get; set; }
+        public RaceClasses Class { get; set; }
 
+        /// <summary>
+        /// rule (国際 etc...)
+        /// </summary>
+        public string Rule { get; set; }
+
+        /// <summary>
+        /// Weight Rule (馬齢 etc...)
+        /// </summary>
+        public string WeightRule { get; set; }
 
         public bool MareOnly { get; set; }
 

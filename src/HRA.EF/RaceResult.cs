@@ -18,7 +18,7 @@ namespace HRA.EF
         public string HorseName { get; set; }
         public int Ranking { get; set; }
         public Time Time { set; get; }
-        public string Diff { set; get; }
+        public string Margin { set; get; }
         public string ThroughRanking { set; get; }
         public decimal Last3F { set; get; }
         public decimal Last4F { set; get; }

@@ -20,9 +20,11 @@ namespace HRA.EF.Enum
     Ogura
   }
 
-  public static partial class RacePlacesExtend {
-    public static string Name(this RacePlaces param) {
-      string ret = "";
+  public static partial class RacePlacesExtend 
+  {
+    public static string Name(this RacePlaces param) 
+    {
+      string ret = string.Empty;
       switch (param) {
         case RacePlaces.Tokyo:
           ret = "東京";

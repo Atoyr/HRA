@@ -12,6 +12,8 @@ namespace HRA.EF
         public string ID { get; set; }
         public string RaceID { get; set; }
         public Time[] ThrohghTimes { set; get; }
+        public string Weather { set; get; }
+        public string condition { set; get; }
     }
 }
 
