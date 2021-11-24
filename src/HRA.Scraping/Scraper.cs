@@ -10,16 +10,29 @@ namespace HRA.Srcaping
 {
   public class Scraper
   {
+    // Target toppage url
     private const string URL = @"";
 
+    // web driver
     private IWebDriver driver { get; set; }
 
+    private IList<Action> actions { get; set; }
+
+    // TODO races
     public List<Race> Races { get; private set; }
 
+    // action wait second
     public int WaitSecond { get; set; }
 
+    // TODO
+    private List<string> openedDayResult { get; set; } = new ();
+    // TODO
+    private bool hasResult { get; set; } = true;
+
+    // TODO
     private List<string> dayPlacesList { get; set; }
 
+    // TODO
     private int dayPlacesIndex { get; set; }
 
     private Scraper() { }
@@ -27,8 +40,9 @@ namespace HRA.Srcaping
     public Scraper(IWebDriver driver)
     {
       this.driver = driver;
-      Races = new List<Race>();
+      actions = new List<Action>();
       WaitSecond = 1;
+      Races = new List<Race>();
     }
 
     public static Scraper Default()
@@ -36,17 +50,31 @@ namespace HRA.Srcaping
       return new Scraper(new OpenQA.Selenium.Chrome.ChromeDriver());
     }
 
+    public void ApplyGetRaceResultHistoryActions()
+    {
+      actions.Add(OpenRaceResultFromTopPage);
+      actions.Add(OpenRaceResultHistoryFromRaseResult);
+      var l = LoopAction(() => hasResult, OpenDayRaceResultFromRaseResultHistory,OpenAllRacesFromDayPlace, GoBack, GoBack);
+      actions.Add(l);
+      // actions.Add(OpenDayRaceResultFromRaseResultHistory);
+      // actions.Add(OpenAllRacesFromDayPlace);
+      // actions.Add(GoBack);
+      // actions.Add(GoBack);
+    }
+
+    public void ApplyGetRaceDayResultActons()
+    {
+      actions.Add(OpenRaceDaysFromTopPage);
+      actions.Add(ReadDayPlacesFromRaceDays);
+      actions.Add(OpenDayPlaceFromRaceDays);
+      actions.Add(OpenAllRacesFromDayPlace);
+      actions.Add(ReadRaceDataFromAllRaces);
+    }
+
     public void Execute()
     {
       driver.Url = URL;
-      var actionList = new List<Action>();
-      actionList.Add(OpenRaceDaysFromTopPage);
-      actionList.Add(ReadDayPlacesFromRaceDays);
-      actionList.Add(OpenDayPlaceFromRaceDays);
-      actionList.Add(OpenAllRacesFromDayPlace);
-      actionList.Add(ReadRaceDataFromAllRaces);
-
-      execute(actionList);
+      execute(actions);
     }
 
     private void execute(IEnumerable<Action> actions)
@@ -59,9 +87,9 @@ namespace HRA.Srcaping
       }
     }
 
-    private void OpenRaceDaysFromTopPage()
+    // TOPから指定のテキストを検索して開く
+    private void OpenFromTopPage(string aText)
     {
-      // 出馬表を開く
       var topPage_ATagElements = driver.FindElements(By.TagName("a"));
       bool find = false;
       foreach (var e in topPage_ATagElements)
@@ -69,7 +97,7 @@ namespace HRA.Srcaping
         var child = e.FindElements(By.TagName("div"));
         foreach(var c in child)
         {
-          if (c.Text == "出馬表")
+          if (c.Text == aText)
           {
             find = true;
             break;
@@ -81,6 +109,17 @@ namespace HRA.Srcaping
           break;
         }
       }
+    }
+    // TOPから出馬表を開く
+    private void OpenRaceDaysFromTopPage()
+    {
+      OpenFromTopPage("出馬表");
+    }
+
+    // TOPからレース結果を開く
+    private void OpenRaceResultFromTopPage()
+    {
+      OpenFromTopPage("レース結果");
     }
 
     private void ReadDayPlacesFromRaceDays()
@@ -97,6 +136,58 @@ namespace HRA.Srcaping
       }
     }
 
+    // レース結果画面から過去レース結果検索を開く
+    private void OpenRaceResultHistoryFromRaseResult()
+    {
+      var raceResult_IdPastResult_AtagsElements = driver.FindElement(By.Id("past_result")).FindElements(By.TagName("a"));
+      foreach(var e in raceResult_IdPastResult_AtagsElements)
+      {
+        if (e.Text == "過去レース結果検索")
+        {
+          e.Click();
+          break;
+        }
+      }
+    }
+
+    // 過去レース結果から日程を開く
+    private void OpenDayRaceResultFromRaseResultHistory()
+    {
+      var raceResult_IdPastResultLine_elements = driver.FindElement(By.Id("past_result"));
+      var idPastResultLine_ul_elements = raceResult_IdPastResultLine_elements.FindElements(By.TagName("ul"));
+      var ul_li_elements = idPastResultLine_ul_elements[0].FindElements(By.TagName("li"));
+      foreach(var e in ul_li_elements)
+      {
+        // head
+        var cell = e.FindElement(By.ClassName("kaisai"));
+        foreach (var li in cell.FindElements(By.TagName("a")))
+        {
+          if (!openedDayResult.Any(x => x == e.Text))
+          {
+            Console.WriteLine(li.Text);
+            openedDayResult.Add(li.Text);
+            hasResult = true;
+            li.Click();
+            return;
+          }
+          hasResult = false;
+        }
+      }
+    }
+
+    // レース結果レース選択からすべてのレースを表示を開く
+    private void OpenAllRacesFromDayPlace()
+    {
+      // すべてのレースを表示
+      foreach(var e in driver.FindElement(By.Id("race_list")).FindElements(By.TagName("a")))
+      {
+        if (e.Text == "全てのレースを表示")
+        {
+          e.Click();
+          break;
+        }
+      }
+    }
 
     private void OpenDayPlaceFromRaceDays()
     {
@@ -113,28 +204,25 @@ namespace HRA.Srcaping
       }
     }
 
-    private void OpenAllRacesFromDayPlace()
-    {
-      // すべてのレースを表示
-      foreach(var e in driver.FindElement(By.Id("race_list")).FindElements(By.TagName("a")))
-      {
-        if (e.Text == "全てのレースを表示")
-        {
-          e.Click();
-          break;
-        }
-      }
-    }
 
     private void ReadRaceDataFromAllRaces()
     {
-      for (int j = 1 ; j < 2; j++)
+      for (int i = 1 ; i < 12; i++)
       {
         var race = new Race();
-        var allRacePage_Round = driver.FindElement(By.Id($"syutsuba_{j}R"));
+        var allRacePage_Round = driver.FindElement(By.Id($"syutsuba_{i}R"));
 
         var caption = allRacePage_Round.FindElement(By.TagName("caption"));
-        Console.WriteLine($"Round {j}");
+
+        race.Round = i;
+        race.Name = caption.FindElement(By.ClassName("race_name")).Text;
+        // race.Date = ;
+        race.Category = caption.FindElement(By.ClassName("type")).FindElement(By.ClassName("category")).Text;
+        race.Rule = caption.FindElement(By.ClassName("type")).FindElement(By.ClassName("rule")).Text;
+        race.WeightRule = caption.FindElement(By.ClassName("type")).FindElement(By.ClassName("weight")).Text;
+        race.Course = caption.FindElement(By.ClassName("detail")).Text.IndexOf("芝") < 0 ? Grounds.Dirt : Grounds.Turf;
+
+        // Console.WriteLine($"Round {j}");
         // Console.WriteLine(caption.FindElements(By.TagName("span")).FirstOrDefault(x => x.FindElement(By.ClassName("race_name")).Displayed).Text);
         Console.WriteLine(caption.FindElement(By.ClassName("type")).FindElement(By.ClassName("category")).Text);
         Console.WriteLine(caption.FindElement(By.ClassName("type")).FindElement(By.ClassName("class")).Text);
@@ -142,17 +230,18 @@ namespace HRA.Srcaping
         Console.WriteLine(caption.FindElement(By.ClassName("type")).FindElement(By.ClassName("weight")).Text);
         Console.WriteLine(caption.FindElement(By.ClassName("type")).FindElement(By.ClassName("course")).Text);
 
-        race.Category = caption.FindElement(By.ClassName("type")).FindElement(By.ClassName("category")).Text;
-        race.Rule = caption.FindElement(By.ClassName("type")).FindElement(By.ClassName("rule")).Text;
-        race.WeightRule = caption.FindElement(By.ClassName("type")).FindElement(By.ClassName("weight")).Text;
 
-        Races.Add(race);
+        // race.ID = race.GenerateID;
 
 
         var tbody = allRacePage_Round.FindElement(By.TagName("tbody"));
         var trs = tbody.FindElements(By.TagName("tr"));
+        int count = 0;
         foreach(var tr in trs)
         {
+          var raceCard = new RaceCard();
+          raceCard.ID = Guid.NewGuid().ToString();
+          raceCard.RaceID = race.ID;
           // var td = tr.FindElements(By.TagName("td"));
           Console.Write("No ");
           Console.WriteLine(tr.FindElement(By.ClassName("num")).Text);
@@ -172,7 +261,11 @@ namespace HRA.Srcaping
           Console.WriteLine(tr.FindElement(By.ClassName("jockey")).FindElement(By.TagName("a")).Text);
           Console.Write("Trainer ");
           Console.WriteLine(tr.FindElement(By.ClassName("trainer")).FindElement(By.TagName("a")).Text);
+          count++;
         }
+
+        race.NumberOfHorse = count;
+        Races.Add(race);
       }
     }
 
@@ -184,6 +277,20 @@ namespace HRA.Srcaping
     private void Sleep(int second)
     {
       System.Threading.Thread.Sleep(second * 1000);
+    }
+
+    private Action LoopAction(Func<bool> isLoop, params Action[] actions)
+    {
+      return () => {
+      while(isLoop())
+      {
+        foreach(var a in actions)
+        {
+          Sleep(WaitSecond);
+          a();
+        }
+      }
+      };
     }
   }
 }

@@ -10,6 +10,7 @@ namespace HRA.Srcaping
         static void Main(string[] args)
         {
           var scraper = Scraper.Default();
+          scraper.ApplyGetRaceResultHistoryActions();
           scraper.Execute();
         }
     }
