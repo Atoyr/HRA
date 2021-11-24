@@ -11,11 +11,13 @@ namespace HRA.EF
     {
         [Key]
         public string Name { get; set; }
-        public SexTypes SexType { get; set; }
         public DateTime BirthDay { get; set; }
         public string Father  { get; set; }
         public string Mother  { get; set; }
-        public string OriginPlace { get; set; }
+        public string MotherMother  { get; set; }
+        public string MotherFather  { get; set; }
+
+        public string Owner { get; set; }
         public string OriginRanch { get; set; }
     }
 }

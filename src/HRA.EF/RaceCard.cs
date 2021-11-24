@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,70 +28,89 @@ namespace HRA.EF
         /// Gate No (1~8)
         /// </summary>
         public int GateNo { get; set; }
+
         /// <summary>
         /// Horse No (1~18)
         /// </summary>
-        public int HorseNo { get; set; }
+        public int No { get; set; }
+
         /// <summary>
         /// Horse Name
         /// </summary>
-        public string HorseName { get; set; }
-        /// <summary>
-        /// Status is cancel and more.
-        /// </summary>
-        public string Status { get; set; }
+        public string Name { get; set; }
 
-        // SnapShot Data
-        
-        /// <summary>
-        /// Favorite (0~18)
-        /// </summary>
-        public int Favorite { set; get; }
-        /// <summary>
-        /// RaceRecord (1.0.0.0)
-        /// </summary>
-        public string RaceRecord { set; get; }
-        /// <summary>
-        /// Owner
-        /// </summary>
-        public string Owner { set; get; }
-        /// <summary>
-        /// Trainer
-        /// </summary>
-        public string Trainer { set; get; } 
+        public string Type { get; set; }
+
+        public bool Blinkers { get; set; }
+
         /// <summary>
         /// Sex Type
         /// </summary>
-        public SexTypes SexType { get; set; }
-        /// <summary>
-        /// Coat Color
-        /// </summary>
-        public string CoatColor { get; set; }
+        public string SexType { get; set; }
+
         /// <summary>
         /// Age
         /// </summary>
         public int Age { get; set; }
-        /// <summary>
-        /// BurdenWeight is Seki ryou.
-        /// </summary>
-        public decimal BurdenWeight { get; set; }
-        /// <summary>
-        /// HorseWeight
-        /// </summary>
-        public decimal HorseWeight { set; get; }
-        /// <summary>
-        /// Fluctuation ( +- 0)
-        /// </summary>
-        public decimal Fluctuation { set; get; }
+
         /// <summary>
         /// Jokey
         /// </summary>
         public string Jokey { set; get; }
 
-        
-        public virtual Race Race { set; get; }
-        public virtual Horse Horse { set; get; }
-        public virtual RaceResult Result { set; get; }
+        /// <summary>
+        /// BurdenWeight is Seki ryou.
+        /// </summary>
+        public decimal BurdenWeight { get; set; }
+
+        /// <summary>
+        /// HorseWeight
+        /// </summary>
+        public decimal HorseWeight { set; get; }
+
+        /// <summary>
+        /// Fluctuation ( +- 0)
+        /// </summary>
+        public decimal Fluctuation { set; get; }
+
+        /// <summary>
+        /// Status is cancel and more.
+        /// </summary>
+        public string Status { get; set; }
+
+        /// <summary>
+        /// Trainer
+        /// </summary>
+        public string Trainer { set; get; }
+
+        /// <summary>
+        /// Favorite (0~18)
+        /// </summary>
+        public int Favorite { set; get; }
+
+        public int Ranking { set; get; }
+
+        public decimal Time { set; get; }
+
+        public string Margin {get; set;}
+
+        /// <summary>
+        /// RaceRecord (1.0.0.0)
+        /// </summary>
+        public string RaceRecord { set; get; }
+
+        public decimal Last3F { get; set; }
+
+        public string Remarks { get; set; }
+
+        public string GenerateID()
+        {
+          StringBuilder sb = new StringBuilder();
+          sb.Append(RaceID);
+          sb.Append(string.Format("{0:D2}", GateNo));
+          sb.Append(string.Format("{0:D2}", No));
+          return sb.ToString();
+        }
     }
 }
 

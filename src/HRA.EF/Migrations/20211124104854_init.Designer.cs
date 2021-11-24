@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace HRA.Migrations
+namespace HRA.EF.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20210811062505_Initial")]
-    partial class Initial
+    [Migration("20211124104854_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,14 +35,17 @@ namespace HRA.Migrations
                     b.Property<string>("Mother")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OriginPlace")
+                    b.Property<string>("MotherFather")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MotherMother")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OriginRanch")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SexType")
-                        .HasColumnType("int");
+                    b.Property<string>("Owner")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Name");
 
@@ -54,8 +57,17 @@ namespace HRA.Migrations
                     b.Property<string>("ID")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("Course")
-                        .HasColumnType("int");
+                    b.Property<string>("AgeCategory")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Baba")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Class")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Course")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -66,6 +78,9 @@ namespace HRA.Migrations
                     b.Property<int>("Distance")
                         .HasColumnType("int");
 
+                    b.Property<string>("FurlongTime")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -75,15 +90,42 @@ namespace HRA.Migrations
                     b.Property<int>("NumberOfHorse")
                         .HasColumnType("int");
 
+                    b.Property<string>("Pattern")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Place")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Rotate")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Round")
                         .HasColumnType("int");
+
+                    b.Property<string>("Rule")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Up3F")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Up4F")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("WeightRule")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Wether")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
                     b.ToTable("Races");
                 });
 
-            modelBuilder.Entity("HRA.EF.RaceResult", b =>
+            modelBuilder.Entity("HRA.EF.RaceCard", b =>
                 {
                     b.Property<string>("ID")
                         .HasColumnType("nvarchar(450)");
@@ -91,14 +133,11 @@ namespace HRA.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Blinkers")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("BurdenWeight")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Diff")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Driver")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Favorite")
                         .HasColumnType("int");
@@ -109,96 +148,54 @@ namespace HRA.Migrations
                     b.Property<int>("GateNo")
                         .HasColumnType("int");
 
-                    b.Property<string>("HorseName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("HorseWeight")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("HorseNo")
-                        .HasColumnType("int");
+                    b.Property<string>("Jokey")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Last3F")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("Margin")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("No")
+                        .HasColumnType("int");
+
                     b.Property<string>("RaceID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RaceRecord")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Ranking")
                         .HasColumnType("int");
 
-                    b.Property<int>("SexType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ThroughRanking")
+                    b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TimeRaceID")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("SexType")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Weight")
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Time")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("ID");
+                    b.Property<string>("Trainer")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("TimeRaceID");
-
-                    b.ToTable("RaceResults");
-                });
-
-            modelBuilder.Entity("HRA.EF.RaceResultSummary", b =>
-                {
-                    b.Property<string>("ID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("RaceID")
+                    b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
-                    b.ToTable("RaceResultSummaries");
-                });
-
-            modelBuilder.Entity("HRA.EF.Time", b =>
-                {
-                    b.Property<string>("RaceID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("RaceResultSummaryID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("RaceTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Range")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("SectionTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("RaceID");
-
-                    b.HasIndex("RaceResultSummaryID");
-
-                    b.ToTable("Times");
-                });
-
-            modelBuilder.Entity("HRA.EF.RaceResult", b =>
-                {
-                    b.HasOne("HRA.EF.Time", "Time")
-                        .WithMany()
-                        .HasForeignKey("TimeRaceID");
-
-                    b.Navigation("Time");
-                });
-
-            modelBuilder.Entity("HRA.EF.Time", b =>
-                {
-                    b.HasOne("HRA.EF.RaceResultSummary", null)
-                        .WithMany("ThrohghTimes")
-                        .HasForeignKey("RaceResultSummaryID");
-                });
-
-            modelBuilder.Entity("HRA.EF.RaceResultSummary", b =>
-                {
-                    b.Navigation("ThrohghTimes");
+                    b.ToTable("RaceCards");
                 });
 #pragma warning restore 612, 618
         }
