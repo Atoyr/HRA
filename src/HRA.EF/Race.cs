@@ -62,7 +62,7 @@ namespace HRA.EF
         /// <summary>
         /// Race Place
         /// </summary>
-        public RacePlaces Place { get; set; }
+        public string Place { get; set; }
 
         /// <summary>
         /// Race Round
@@ -78,6 +78,8 @@ namespace HRA.EF
         /// Race Course
         /// </summary>
         public string Course { get; set; }
+
+        public string Ground { get; set; }
 
         public string Rotate { get; set; }
 
@@ -99,7 +101,7 @@ namespace HRA.EF
         {
           StringBuilder sb = new StringBuilder();
           sb.Append(Date.ToString("yyyyMMdd"));
-          sb.Append(string.Format("{0:D2}", (int)Place));
+          // sb.Append(string.Format("{0:D2}", Place));
           sb.Append(string.Format("{0:D2}", No));
           sb.Append(string.Format("{0:D2}", Day));
           sb.Append(string.Format("{0:D2}", Round));
