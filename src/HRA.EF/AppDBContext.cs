@@ -20,5 +20,12 @@ namespace HRA.EF
         public DbSet<Horse> Horses { get; set; }
         public DbSet<Race> Races { get; set; }
         public DbSet<RaceCard> RaceCards { get; set; }
+
+        public static AppDBContext Default(string connString)
+        {
+            var item = new DbContextOptionsBuilder<AppDBContext>();
+            item.UseSqlServer(connString);
+            return new AppDBContext(item.Options);
+        }
     }
 }

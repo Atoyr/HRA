@@ -44,7 +44,7 @@ namespace HRA.Web.Pages
       {
         races = RaceService.Get(x => x.ID == RaceID );
       }
-      racePlaces = races.GroupBy(x => new {x.Place, x.Date}).Select(x => new RaceInfo{Place = x.Key.Place, Date = x.Key.Date }).ToList();
+      //racePlaces = races.GroupBy(x => new {x.Place, x.Date}).Select(x => new RaceInfo{Place = x.Key.Place, Date = x.Key.Date }).ToList();
     }
   }
 

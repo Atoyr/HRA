@@ -44,6 +44,8 @@ namespace HRA.EF
 
         public string Rule { get; set; }
 
+        public bool FemaleOnly { get; set; }
+
         /// <summary>
         /// Weight Rule (馬齢 etc...)
         /// </summary>

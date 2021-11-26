@@ -13,10 +13,10 @@
       <p>@p.Date</p>
       <p>@p.Place.Name()</p>
 
-      @foreach(var race in races.Where(x => x.Date == p.Date && x.Place == p.Place).OrderBy(x => x.Round).ToList())
-      {
-        <h5>@race.Name</h5>
-      }
+      // @foreach(var race in races.Where(x => x.Date == p.Date && x.Place == p.Place).OrderBy(x => x.Round).ToList())
+      // {
+      //   <h5>@race.Name</h5>
+      // }
     }
   }
 

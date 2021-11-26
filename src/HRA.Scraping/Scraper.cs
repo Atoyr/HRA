@@ -283,38 +283,37 @@ namespace HRA.Srcaping
         pattern = "[芝|ダート]";
         m = Regex.Match(courceStr, pattern, RegexOptions.IgnoreCase);
         if (m.Success) race.Ground = m.Value;
+        var tbody = raceResultNR_Element.FindElement(By.TagName("tbody"));
+        var trs = tbody.FindElements(By.TagName("tr"));
+        int count = 0;
+        foreach(var tr in trs)
+        {
+          var raceCard = new RaceCard();
+          raceCard.ID = Guid.NewGuid().ToString();
+          raceCard.RaceID = race.ID;
+          // var td = tr.FindElements(By.TagName("td"));
+          Console.Write("No ");
+          Console.WriteLine(tr.FindElement(By.ClassName("num")).Text);
 
-        // var tbody = allRacePage_Round.FindElement(By.TagName("tbody"));
-        // var trs = tbody.FindElements(By.TagName("tr"));
-        // int count = 0;
-        // foreach(var tr in trs)
-        // {
-        //   var raceCard = new RaceCard();
-        //   raceCard.ID = Guid.NewGuid().ToString();
-        //   raceCard.RaceID = race.ID;
-        //   // var td = tr.FindElements(By.TagName("td"));
-        //   Console.Write("No ");
-        //   Console.WriteLine(tr.FindElement(By.ClassName("num")).Text);
+          Console.Write("Horse ");
+          Console.WriteLine(tr.FindElement(By.ClassName("horse")).FindElement(By.TagName("a")).Text);
 
-        //   Console.Write("Horse ");
-        //   Console.WriteLine(tr.FindElement(By.ClassName("horse")).FindElement(By.TagName("a")).Text);
+          Console.Write("Horse Weight ");
+          Console.WriteLine(tr.FindElement(By.ClassName("h_weight")).Text);
 
-        //   Console.Write("Horse Weight ");
-        //   Console.WriteLine(tr.FindElement(By.ClassName("h_weight")).Text);
+          Console.Write("Age ");
+          Console.WriteLine(tr.FindElement(By.ClassName("age")).Text);
 
-        //   Console.Write("Age ");
-        //   Console.WriteLine(tr.FindElement(By.ClassName("age")).Text);
+          Console.Write("Weight ");
+          Console.WriteLine(tr.FindElement(By.ClassName("weight")).Text);
+          Console.Write("Jockey ");
+          Console.WriteLine(tr.FindElement(By.ClassName("jockey")).FindElement(By.TagName("a")).Text);
+          Console.Write("Trainer ");
+          Console.WriteLine(tr.FindElement(By.ClassName("trainer")).FindElement(By.TagName("a")).Text);
+          count++;
+        }
 
-        //   Console.Write("Weight ");
-        //   Console.WriteLine(tr.FindElement(By.ClassName("weight")).Text);
-        //   Console.Write("Jockey ");
-        //   Console.WriteLine(tr.FindElement(By.ClassName("jockey")).FindElement(By.TagName("a")).Text);
-        //   Console.Write("Trainer ");
-        //   Console.WriteLine(tr.FindElement(By.ClassName("trainer")).FindElement(By.TagName("a")).Text);
-        //   count++;
-        // }
-
-        // race.NumberOfHorse = count;
+        race.NumberOfHorse = count;
         // Races.Add(race);
         Console.Write($"{race.Date.ToString("yyyy/MM/dd")}\t");
         Console.Write($"{race.Name}\t");
@@ -332,6 +331,7 @@ namespace HRA.Srcaping
         Console.Write($"{race.Rotate}\t");
         Console.Write($"{race.Wether}\t");
         Console.Write($"{race.Baba}\t");
+        Console.Write($"{race.NumberOfHorse}\t");
         Console.WriteLine();
       }
     }

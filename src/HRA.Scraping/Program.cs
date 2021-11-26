@@ -2,6 +2,7 @@
 using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using HRA.EF;
 
 namespace HRA.Srcaping
 {
